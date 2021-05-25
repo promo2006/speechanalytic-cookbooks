@@ -1,0 +1,7 @@
+{
+    "run_list": [
+      "role[rasa_node]"
+    ]
+  }
+  
+  

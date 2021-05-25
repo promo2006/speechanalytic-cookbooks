@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var path = require("path");
+exports.SERVER_MODE = 'prod';
+exports.HTTP_ENABLED = true;
+exports.HTTP_BINDING_HOST = '0.0.0.0';
+exports.HTTP_BINDING_PORT = '<%= node.default[:http_binding_port] %>';
+exports.HTTPS_ENABLED = true;
+exports.HTTPS_BINDING_HOST = '0.0.0.0';
+exports.HTTPS_BINDING_PORT = 443;
+exports.HTTPS_KEY = path.resolve(__dirname, '../ssl/star_inconcertcc_com.key');
+exports.HTTPS_CERT = path.resolve(__dirname, '../ssl/star_inconcertcc_com.pem');

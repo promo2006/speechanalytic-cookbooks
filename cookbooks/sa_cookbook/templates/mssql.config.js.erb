@@ -1,0 +1,32 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MSSQL_HOST = '<%= node.default[:ip_bd] %>';
+exports.MSSQL_PORT = <%= node.default[:port_bd] %>;
+exports.MSSQL_USER = '<%= node.default[:bd_user] %>';
+exports.MSSQL_PASSWORD = '<%= node.default[:bd_pass] %>';
+exports.MSSQL_DATABASE = 'SpeechAnalytics';
+exports.MSSQL_CONN_TIMEOUT = 30 * 1000;
+exports.MSSQL_REQ_TIMEOUT = 300 * 1000;
+exports.MSSQL_POOL_MIN = 0;
+exports.MSSQL_POOL_MAX = 50;
+exports.MSSQL_POOL_IDLE_TIMEOUT = 24 * 60 * 60 * 1000;
+exports.MSSQL_ENCRYPT = false;
+exports.MSSQL_USE_UTC = true;
+exports.MSSQL_CONFIG = {
+    user: exports.MSSQL_USER,
+    password: exports.MSSQL_PASSWORD,
+    server: exports.MSSQL_HOST,
+    database: exports.MSSQL_DATABASE,
+    port: exports.MSSQL_PORT,
+    connectionTimeout: exports.MSSQL_CONN_TIMEOUT,
+    requestTimeout: exports.MSSQL_REQ_TIMEOUT,
+    pool: {
+        max: exports.MSSQL_POOL_MAX,
+        min: exports.MSSQL_POOL_MIN,
+        idleTimeoutMillis: exports.MSSQL_POOL_IDLE_TIMEOUT
+    },
+    options: {
+        encrypt: exports.MSSQL_ENCRYPT,
+        useUTC: exports.MSSQL_USE_UTC
+    }
+};
