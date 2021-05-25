@@ -1,0 +1,23 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var defaultConfig = function (clientType, version, host, port, user, password, database) {
+    return {
+        client: clientType,
+        version: version,
+        connection: {
+            host: host,
+            user: user,
+            password: password,
+            database: database
+        },
+        pool: {
+            min: 0,
+            max: 1
+        }
+    };
+};
+var connections = {
+    call: defaultConfig('mssql', null, '<%= node.default[:ip_bd] %>', <%= node.default[:port_bd] %>,  '<%= node.default[:bd_user] %>',  '<%= node.default[:bd_pass] %>', 'historicaldata'),
+    inconcert: defaultConfig('mssql', null, '<%= node.default[:ip_bd] %>', <%= node.default[:port_bd] %>,  '<%= node.default[:bd_user] %>',  '<%= node.default[:bd_pass] %>', 'mmprodat')
+};
+exports.connections = connections;

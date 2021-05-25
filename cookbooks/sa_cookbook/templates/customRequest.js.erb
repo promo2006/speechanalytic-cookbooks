@@ -1,0 +1,371 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var sy = require("systeminformation");
+var md5 = require("md5");
+var request = require("request-promise-native");
+var routes_centralized_1 = require("./routes-centralized");
+var crypt_1 = require("./crypt");
+var moment = require("moment");
+var file_manager_1 = require("./shared/file-manager");
+var fs = require('fs');
+var CENTRALIZED_API_BASE_URL = '<%= node.default[:centralized_api_base_url]%>';
+function InconcertRequest(installationId, path, data) {
+    var systemInformationData = null;
+    var route = routes_centralized_1.RoutesCentralized[path];
+    return DummyPromise()
+        .then(function (result) {
+        if (installationId && route && data)
+            return GetSystemInformation(installationId);
+        else
+            throw 'SERVER_ERROR_MISSING_REQUIRED_PARAMETERS';
+    })
+        .then(function (result) {
+        systemInformationData = result;
+        var plaformHash = '';
+        if (systemInformationData) {
+            plaformHash = GenerateMD5Content(systemInformationData);
+        }
+        var options = {
+            method: 'POST',
+            uri: CENTRALIZED_API_BASE_URL + route,
+            body: data,
+            headers: {
+                'Content-Type': 'application/json',
+                'Platform-Hash': plaformHash
+            },
+            json: true,
+            resolveWithFullResponse: false
+        };
+        return request(options);
+    })
+        .then(function (result) {
+        if (result === null)
+            throw 'SERVER_ERROR_EXTERNAL_REQUEST_FAILED';
+        return Promise.resolve(result);
+    })
+        .catch(function (err) {
+        var clientMsg = (typeof err === 'string' ? err : 'Cannot process request');
+        var errorMsg = (typeof err === 'string' ? err : err.message || err.description || 'SERVER_ERROR_REQUESTING_ERROR');
+        return Promise.reject(err);
+    });
+}
+exports.InconcertRequest = InconcertRequest;
+function GetSystemInformation(instalationId) {
+    var systemInformationData = {
+        installationId: instalationId,
+        macAddress: '',
+        publicIp: ''
+    };
+    return DummyPromise()
+        .then(function (result) {
+        var sys = sy.networkInterfaces();
+        return sys;
+    })
+        .then(function (result) {
+        if (result === null)
+            throw 'SERVER_ERROR_NOT_FOUND_NETWORK_INTERFACE_INFORMATION';
+        if (result && result.length) {
+            var myNetworkInterface = null;
+            myNetworkInterface = result.filter(function (r) { return r.operstate === 'up'; })[0];
+            systemInformationData.macAddress = myNetworkInterface.mac;
+            systemInformationData.ip = myNetworkInterface.ip4;
+        }
+        return Promise.resolve(systemInformationData);
+    })
+        .catch(function (err) {
+        var errorMsg = (err && err.procName ? 'Error al ejecutar \'' + err.procName + '\': ' : 'Error al ejecutar consulta: ') + (err ? typeof err === 'string' ? err : err.message || err.description || '' : '');
+        return Promise.reject(err);
+    });
+}
+exports.GetSystemInformation = GetSystemInformation;
+function GenerateMD5Content(data) {
+    var result = '';
+    if (data) {
+        result += data.installationId;
+        result += data.macAddress;
+        result = md5(result);
+    }
+    return result;
+}
+exports.GenerateMD5Content = GenerateMD5Content;
+function DummyPromise() {
+    return new Promise(function (resolve, reject) {
+        resolve(true);
+    });
+}
+exports.DummyPromise = DummyPromise;
+function SleepPromise(secondTime) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(resolve, (1000 * secondTime));
+    });
+}
+exports.SleepPromise = SleepPromise;
+var rootPath = '/sq/';
+var storagePath = rootPath + 'storage/';
+var generalFilePath = rootPath + 'storage/file.txt';
+var segmentedFileFolderPath = rootPath + 'storage/out/';
+var completedFileFolderPath = rootPath + 'storage/completed/';
+function InconcertCheckSystemFolder() {
+    return DummyPromise()
+        .then(function (result) {
+        return file_manager_1.CreateFolder(rootPath);
+    })
+        .then(function (result) {
+        return file_manager_1.CreateFolder(storagePath);
+    })
+        .then(function (result) {
+        return file_manager_1.CreateFolder(segmentedFileFolderPath);
+    })
+        .then(function (result) {
+        return file_manager_1.CreateFolder(completedFileFolderPath);
+    })
+        .then(function (result) {
+        return Promise.resolve(result);
+    })
+        .catch(function (err) {
+        return Promise.resolve(false);
+    });
+}
+exports.InconcertCheckSystemFolder = InconcertCheckSystemFolder;
+function InconcertExistsGeneralFile() {
+    try {
+        if (fs.existsSync(generalFilePath)) {
+            return true;
+        }
+        else {
+            fs.writeFile(generalFilePath, '', function (err) {
+                if (err) {
+                    console.error(err);
+                    return false;
+                }
+                return true;
+            });
+            return true;
+        }
+    }
+    catch (err) {
+        console.error(err);
+        return false;
+    }
+}
+exports.InconcertExistsGeneralFile = InconcertExistsGeneralFile;
+function InconcertAddDataToGeneralFile(myText, myTextStatus) {
+    if (InconcertExistsGeneralFile()) {
+        if (myTextStatus !== undefined)
+            return InconcertAddEncryptTextToFile(generalFilePath, myText, myTextStatus);
+        else
+            return InconcertAddEncryptTextToFile(generalFilePath, myText);
+    }
+    else {
+        if (myTextStatus)
+            return InconcertAddDataToGeneralFile(myText, myTextStatus);
+        else
+            return InconcertAddDataToGeneralFile(myText);
+    }
+}
+exports.InconcertAddDataToGeneralFile = InconcertAddDataToGeneralFile;
+function InconcertAddDataToSegmentedFile(myText) {
+    var blockFileNewNamePath = segmentedFileFolderPath + moment().format('x') + '1-NEW.txt';
+    var blockFileUpdateNamePath = segmentedFileFolderPath + moment().format('x') + '2-UPDATE.txt';
+    var blockFileCompletedNamePath = segmentedFileFolderPath + moment().format('x') + '3-COMPLETED.txt';
+    var newInsertCounter = 0;
+    var updateInsertCounter = 0;
+    var completedInsertCounter = 0;
+    myText.map(function (s) {
+        if (s && s.length) {
+            var operation = s.split('::');
+            if (operation.length === 1) {
+                newInsertCounter++;
+                InconcertAddTextToFile(blockFileNewNamePath, s);
+            }
+            else {
+                switch (operation[1]) {
+                    case 'new':
+                        newInsertCounter++;
+                        InconcertAddTextToFile(blockFileNewNamePath, s);
+                        break;
+                    case 'update':
+                        updateInsertCounter++;
+                        InconcertAddTextToFile(blockFileUpdateNamePath, s);
+                        break;
+                    case 'success':
+                        completedInsertCounter++;
+                        InconcertAddTextToFile(blockFileCompletedNamePath, s);
+                        break;
+                    case 'failed':
+                        completedInsertCounter++;
+                        InconcertAddTextToFile(blockFileCompletedNamePath, s);
+                        break;
+                }
+            }
+        }
+    });
+    return true;
+}
+exports.InconcertAddDataToSegmentedFile = InconcertAddDataToSegmentedFile;
+function InconcertAddEncryptTextToFile(myFile, myText, myTextResult) {
+    var insertText = '';
+    if (myTextResult !== undefined) {
+        insertText += crypt_1.InconcertEncrypt(myText) + '::' + myTextResult;
+    }
+    else {
+        insertText += crypt_1.InconcertEncrypt(myText);
+    }
+    try {
+        fs.appendFileSync(myFile, insertText + '\n');
+    }
+    catch (err) {
+        console.log('Save failed!');
+    }
+    return true;
+}
+exports.InconcertAddEncryptTextToFile = InconcertAddEncryptTextToFile;
+function InconcertAddTextToFile(myFile, myText) {
+    try {
+        fs.appendFileSync(myFile, myText + '\n');
+    }
+    catch (err) {
+        fs.writeFile(myFile, '', function (err) {
+            if (err) {
+                console.error(err);
+                return false;
+            }
+            return true;
+        });
+        InconcertAddTextToFile(myFile, myText);
+        console.log('Save failed!');
+    }
+    return true;
+}
+exports.InconcertAddTextToFile = InconcertAddTextToFile;
+function InconcertSplitGeneralFileData() {
+    var data = fs.readFileSync(generalFilePath, 'utf-8');
+    var blockSize = 50;
+    var content = data.toString().split('\n');
+    var totalRows = content.filter(function (r) { return r.length > 0; }).length;
+    var blocks = Math.ceil(totalRows / blockSize);
+    for (var i = 0; i < blocks; i++) {
+        var blockContent = content.splice(0, blockSize);
+        InconcertAddDataToSegmentedFile(blockContent);
+    }
+    fs.writeFileSync(generalFilePath, content.join('\n'), 'utf-8');
+}
+exports.InconcertSplitGeneralFileData = InconcertSplitGeneralFileData;
+function InconcertSegmentedFileUpload(installationId) {
+    var segmentedFiles = [];
+    var segmentedNewFiles = [];
+    var segmentedUpdateFiles = [];
+    var segmentedCloseFiles = [];
+    var segmentedFilesResult = [];
+    return DummyPromise()
+        .then(function (result) {
+        return InconcertCheckSystemFolder();
+    })
+        .then(function (result) {
+        return file_manager_1.GetFolderTree(segmentedFileFolderPath);
+    })
+        .then(function (result) {
+        if (result && result.length > 0 && result[0].children && result[0].children.length > 0) {
+            segmentedFiles = result[0].children;
+            var fileContentPromises_1 = [];
+            segmentedFiles.map(function (f) {
+                fileContentPromises_1.push(file_manager_1.ReadFileContent(f.fullPath, 'utf8'));
+            });
+            return Promise.all(fileContentPromises_1);
+        }
+        else {
+            throw 'SERVER_ERROR_NOT_FOUND_FILE';
+        }
+    })
+        .then(function (result) {
+        var arrSummary = [];
+        var promises = [];
+        if (result && result.length > 0) {
+            result.map(function (r, i) {
+                var body = {
+                    'installationId': installationId,
+                    'file': segmentedFiles[i].name,
+                    'data': r
+                };
+                arrSummary.push(body);
+            });
+        }
+        else {
+            throw 'SERVER_ERROR_NOT_FOUND_FILE_CONTENT';
+        }
+        return InconcertSegmenteFileRecursiveSend(arrSummary);
+    })
+        .then(function (result) {
+        if (result && result.status) {
+            Promise.resolve({ 'res': true, 'data': result });
+        }
+        else
+            throw 'SERVER_ERROR_MASSIVE_UPLOAD_FAILED';
+    })
+        .catch(function (err) {
+        Promise.resolve({ 'res': false, 'err': err });
+    });
+}
+exports.InconcertSegmentedFileUpload = InconcertSegmentedFileUpload;
+function InconcertSegmenteFileRecursiveSend(arrSummary) {
+    var myBody = arrSummary.shift();
+    return SleepPromise(1)
+        .then(function (result) {
+        return InconcertRequest(myBody.installationId, 'IC_PARAM_URL_BATCH_DETAIL_SAVE', myBody);
+    })
+        .then(function (result) {
+        if (result === null)
+            throw 'SERVER_ERROR_NOT_RECEIVED_RESULT';
+        if (result.status !== true) {
+            throw 'SERVER_ERROR_FILE_UPLOAD_FAILED';
+        }
+        else {
+            return InconcertSegmentedFileToCompletedFolder(result.data);
+        }
+    })
+        .then(function (result) {
+        if (result) {
+            if (arrSummary.length > 0) {
+                return InconcertSegmenteFileRecursiveSend(arrSummary);
+            }
+            else
+                return Promise.resolve({ 'res': true, 'data': result });
+        }
+        else {
+            throw 'SERVER_ERROR_FILE_MOVE_FAILED';
+        }
+    })
+        .catch(function (err) {
+        Promise.resolve({ 'res': false, 'err': err });
+    });
+}
+function InconcertSegmentedFileToCompletedFolder(segmentedFileName) {
+    var sourcePath = segmentedFileFolderPath + segmentedFileName;
+    var targetPath = completedFileFolderPath + segmentedFileName;
+    return DummyPromise()
+        .then(function (result) {
+        return file_manager_1.CreateFolder(completedFileFolderPath);
+    })
+        .then(function (result) {
+        return file_manager_1.CopyFile(sourcePath, targetPath);
+    })
+        .then(function (result) {
+        if (result) {
+            return file_manager_1.DeleteFile(sourcePath);
+        }
+        else {
+            throw 'SERVER_ERROR_COPY_FILE_FAILED';
+        }
+    })
+        .then(function (result) {
+        if (result) {
+            return Promise.resolve(true);
+        }
+        else {
+            throw 'SERVER_ERROR_DELETE_FILE_FAILED';
+        }
+    })
+        .catch(function (err) {
+        return Promise.resolve(false);
+    });
+}
