@@ -31,6 +31,9 @@ node.default["http_binding_port"]                            =  data_bag_item('s
 node.default["centralized_api_base_url"]                     =  data_bag_item('speechanalytic', 'sa_config')['centralized_api_base_url'] 
 node.default["sa_version"]                                   =  data_bag_item('speechanalytic', 'sa_config')['sa_version'] 
 node.default["intermediate_version"]                         =  data_bag_item('speechanalytic', 'sa_config')['intermediate_version'] 
+node.default["billing_flag"]                                 =  "false"
+node.default["speechmatic_flag"]                             =  "false"
+node.default["idatha_flag"]                                  =  "false"
 
 =begin
 #modificar tipo a privada, publica o interxion para asignar ips correspondientes speechmatics e idatha
