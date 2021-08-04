@@ -1,0 +1,172 @@
+I, [2021-08-03T17:32:30.199471 #13280]  INFO -- default2-ubuntu-1604: -----> Converging <default2-ubuntu-1604>...
+I, [2021-08-03T17:32:30.254069 #13280]  INFO -- default2-ubuntu-1604: Preparing files for transfer
+W, [2021-08-03T17:32:30.254239 #13280]  WARN -- default2-ubuntu-1604: You must set your run_list in your Policyfile instead of kitchen config. The run_list in your config will be ignored.
+W, [2021-08-03T17:32:30.254273 #13280]  WARN -- default2-ubuntu-1604: Ignored run_list: ["recipe[learn_chef_cookbook::default]"]
+I, [2021-08-03T17:32:30.254507 #13280]  INFO -- default2-ubuntu-1604: Installing cookbooks for Policyfile /home/gretty/Proyectos/speech_cookbooks/cookbooks/sa_cookbook/Policyfile.rb using `/usr/bin/chef-cli install`
+I, [2021-08-03T17:32:30.834116 #13280]  INFO -- default2-ubuntu-1604: Installing cookbooks from lock
+I, [2021-08-03T17:32:30.863481 #13280]  INFO -- default2-ubuntu-1604: Using      line        4.0.1
+I, [2021-08-03T17:32:30.863657 #13280]  INFO -- default2-ubuntu-1604: Using      openssl     8.5.5
+I, [2021-08-03T17:32:30.863695 #13280]  INFO -- default2-ubuntu-1604: Installing sa_cookbook 0.0.0
+I, [2021-08-03T17:32:30.864498 #13280]  INFO -- default2-ubuntu-1604: Using      tar         2.2.0
+I, [2021-08-03T17:32:30.878750 #13280]  INFO -- default2-ubuntu-1604: Preparing dna.json
+I, [2021-08-03T17:32:30.879253 #13280]  INFO -- default2-ubuntu-1604: Exporting cookbook dependencies from Policyfile /tmp/default2-ubuntu-1604-sandbox-20210803-13280-1lgmey7 using `/usr/bin/chef-cli export`...
+I, [2021-08-03T17:32:31.477094 #13280]  INFO -- default2-ubuntu-1604: Exported policy 'sa_cookbook' to /tmp/default2-ubuntu-1604-sandbox-20210803-13280-1lgmey7
+I, [2021-08-03T17:32:31.477161 #13280]  INFO -- default2-ubuntu-1604: 
+I, [2021-08-03T17:32:31.477180 #13280]  INFO -- default2-ubuntu-1604: To converge this system with the exported policy, run:
+I, [2021-08-03T17:32:31.477198 #13280]  INFO -- default2-ubuntu-1604:   cd /tmp/default2-ubuntu-1604-sandbox-20210803-13280-1lgmey7
+I, [2021-08-03T17:32:31.477212 #13280]  INFO -- default2-ubuntu-1604:   chef-client -z
+I, [2021-08-03T17:32:31.490878 #13280]  INFO -- default2-ubuntu-1604: Removing non-cookbook files before transfer
+I, [2021-08-03T17:32:31.491611 #13280]  INFO -- default2-ubuntu-1604: Preparing data_bags
+I, [2021-08-03T17:32:31.492953 #13280]  INFO -- default2-ubuntu-1604: Preparing validation.pem
+I, [2021-08-03T17:32:31.493460 #13280]  INFO -- default2-ubuntu-1604: Preparing client.rb
+I, [2021-08-03T17:32:31.848384 #13280]  INFO -- default2-ubuntu-1604: -----> Chef installation detected (install only if missing)
+I, [2021-08-03T17:32:31.905810 #13280]  INFO -- default2-ubuntu-1604: Transferring files to <default2-ubuntu-1604>
+I, [2021-08-03T17:32:34.313746 #13280]  INFO -- default2-ubuntu-1604: Starting Chef Infra Client, version 16.12.3
+I, [2021-08-03T17:32:34.313816 #13280]  INFO -- default2-ubuntu-1604: Patents: https://www.chef.io/patents
+I, [2021-08-03T17:32:35.386373 #13280]  INFO -- default2-ubuntu-1604: Using policy 'sa_cookbook' at revision '0de254529db584c74c1308e767cf80170212e2959db5506f0412208a1967c186'
+I, [2021-08-03T17:32:35.393116 #13280]  INFO -- default2-ubuntu-1604: resolving cookbooks for run list: ["sa_cookbook::updatespeech@0.0.0 (d430acf)", "sa_cookbook::aprovisionamiento@0.0.0 (d430acf)", "sa_cookbook::speechanalytic@0.0.0 (d430acf)"]
+I, [2021-08-03T17:32:35.438506 #13280]  INFO -- default2-ubuntu-1604: Synchronizing Cookbooks:
+I, [2021-08-03T17:32:35.443487 #13280]  INFO -- default2-ubuntu-1604:   - line (4.0.1)
+I, [2021-08-03T17:32:35.448423 #13280]  INFO -- default2-ubuntu-1604:   - tar (2.2.0)
+I, [2021-08-03T17:32:35.448655 #13280]  INFO -- default2-ubuntu-1604:   - openssl (8.5.5)
+I, [2021-08-03T17:32:35.448962 #13280]  INFO -- default2-ubuntu-1604:   - sa_cookbook (0.0.0)
+I, [2021-08-03T17:32:35.449518 #13280]  INFO -- default2-ubuntu-1604: Installing Cookbook Gems:
+I, [2021-08-03T17:32:35.457854 #13280]  INFO -- default2-ubuntu-1604: Compiling Cookbooks...
+I, [2021-08-03T17:32:35.533323 #13280]  INFO -- default2-ubuntu-1604: Instalación de SpeechAnalytic Finalizada Correctamente
+I, [2021-08-03T17:32:35.534250 #13280]  INFO -- default2-ubuntu-1604: Converging 48 resources
+I, [2021-08-03T17:32:35.534794 #13280]  INFO -- default2-ubuntu-1604: Recipe: tar::default
+I, [2021-08-03T17:32:35.602110 #13280]  INFO -- default2-ubuntu-1604:   * apt_package[tar] action install (up to date)
+I, [2021-08-03T17:32:35.602635 #13280]  INFO -- default2-ubuntu-1604: Recipe: sa_cookbook::updatespeech
+I, [2021-08-03T17:32:35.611173 #13280]  INFO -- default2-ubuntu-1604:   * ruby_block[check speechmatic] action run Se estableció conección correcta con el servidor de speechmatics
+I, [2021-08-03T17:32:35.611463 #13280]  INFO -- default2-ubuntu-1604: 
+I, [2021-08-03T17:32:35.611608 #13280]  INFO -- default2-ubuntu-1604:     - execute the ruby block check speechmatic
+I, [2021-08-03T17:32:35.613977 #13280]  INFO -- default2-ubuntu-1604:   * ruby_block[check idatha] action run Se estableció conección correcta con el servidor de idatha
+I, [2021-08-03T17:32:35.614128 #13280]  INFO -- default2-ubuntu-1604: 
+I, [2021-08-03T17:32:35.614263 #13280]  INFO -- default2-ubuntu-1604:     - execute the ruby block check idatha
+I, [2021-08-03T17:32:35.614833 #13280]  INFO -- default2-ubuntu-1604:   * ruby_block[check billing] action run Se estableció conección correcta con el servidor de billing
+I, [2021-08-03T17:32:35.614966 #13280]  INFO -- default2-ubuntu-1604: 
+I, [2021-08-03T17:32:35.615126 #13280]  INFO -- default2-ubuntu-1604:     - execute the ruby block check billing
+I, [2021-08-03T17:32:35.632804 #13280]  INFO -- default2-ubuntu-1604:   * ruby_block[VerificaSpeechVersion] action createRealizando upgrade de speechanalytic de la versión: 0.20.a la versión: 1.4.2
+I, [2021-08-03T17:32:35.633054 #13280]  INFO -- default2-ubuntu-1604: 
+I, [2021-08-03T17:32:35.633557 #13280]  INFO -- default2-ubuntu-1604:     - execute the ruby block VerificaSpeechVersion
+I, [2021-08-03T17:32:35.653671 #13280]  INFO -- default2-ubuntu-1604:   * ruby_block[VerificaNodeVersion] action createv8.17.0
+I, [2021-08-03T17:32:35.654215 #13280]  INFO -- default2-ubuntu-1604: 
+I, [2021-08-03T17:32:35.654579 #13280]  INFO -- default2-ubuntu-1604:     - execute the ruby block VerificaNodeVersion
+I, [2021-08-03T17:32:35.657676 #13280]  INFO -- default2-ubuntu-1604:   * apt_repository[nodejs] action add
+I, [2021-08-03T17:32:35.657996 #13280]  INFO -- default2-ubuntu-1604:     * execute[apt-cache gencaches] action nothing (skipped due to action :nothing)
+I, [2021-08-03T17:32:35.658989 #13280]  INFO -- default2-ubuntu-1604:     * apt_update[nodejs] action nothing (skipped due to action :nothing)
+I, [2021-08-03T17:32:36.235506 #13280]  INFO -- default2-ubuntu-1604:     * remote_file[/tmp/kitchen/cache/https___deb_nodesource_com_gpgkey_nodesource_gpg_key] action create (up to date)
+I, [2021-08-03T17:32:36.384604 #13280]  INFO -- default2-ubuntu-1604:     * execute[apt-key add /tmp/kitchen/cache/https___deb_nodesource_com_gpgkey_nodesource_gpg_key] action run (skipped due to not_if)
+I, [2021-08-03T17:32:36.432018 #13280]  INFO -- default2-ubuntu-1604:     * file[/etc/apt/sources.list.d/nodejs.list] action create
+I, [2021-08-03T17:32:36.432344 #13280]  INFO -- default2-ubuntu-1604:       - update content in file /etc/apt/sources.list.d/nodejs.list from 869ea4 to 1990ae
+I, [2021-08-03T17:32:36.432575 #13280]  INFO -- default2-ubuntu-1604:       --- /etc/apt/sources.list.d/nodejs.list	2021-08-03 22:22:52.459911329 +0000
+I, [2021-08-03T17:32:36.432810 #13280]  INFO -- default2-ubuntu-1604:       +++ /etc/apt/sources.list.d/.chef-nodejs20210803-12677-k8u9j9.list	2021-08-03 22:32:36.433890738 +0000
+I, [2021-08-03T17:32:36.432978 #13280]  INFO -- default2-ubuntu-1604:       @@ -1,2 +1,2 @@
+I, [2021-08-03T17:32:36.433133 #13280]  INFO -- default2-ubuntu-1604:       -deb      https://deb.nodesource.com/node_8.x xenial main
+I, [2021-08-03T17:32:36.434176 #13280]  INFO -- default2-ubuntu-1604:       +deb      https://deb.nodesource.com/node_14.x xenial main
+I, [2021-08-03T17:32:38.039591 #13280]  INFO -- default2-ubuntu-1604:     * execute[apt-cache gencaches] action run
+I, [2021-08-03T17:32:38.039961 #13280]  INFO -- default2-ubuntu-1604:       - execute ["apt-cache", "gencaches"]
+I, [2021-08-03T17:32:38.043908 #13280]  INFO -- default2-ubuntu-1604:     * apt_update[nodejs] action update
+I, [2021-08-03T17:32:38.047238 #13280]  INFO -- default2-ubuntu-1604:       * directory[/var/lib/apt/periodic] action create (up to date)
+I, [2021-08-03T17:32:38.049265 #13280]  INFO -- default2-ubuntu-1604:       * directory[/etc/apt/apt.conf.d] action create (up to date)
+I, [2021-08-03T17:32:38.056249 #13280]  INFO -- default2-ubuntu-1604:       * file[/etc/apt/apt.conf.d/15update-stamp] action create_if_missing (up to date)
+I, [2021-08-03T17:32:41.377574 #13280]  INFO -- default2-ubuntu-1604:       * execute[apt-get -q update] action run
+I, [2021-08-03T17:32:41.378174 #13280]  INFO -- default2-ubuntu-1604:  - execute ["apt-get", "-q", "update"]
+I, [2021-08-03T17:32:41.382396 #13280]  INFO -- default2-ubuntu-1604:       - force update new lists of packages
+I, [2021-08-03T17:32:41.383297 #13280]  INFO -- default2-ubuntu-1604:   
+I, [2021-08-03T17:32:41.412680 #13280]  INFO -- default2-ubuntu-1604:   * bash[preparar carpetas para el upgrade] action run
+I, [2021-08-03T17:32:41.412989 #13280]  INFO -- default2-ubuntu-1604:     - execute "bash" 
+I, [2021-08-03T17:32:41.419936 #13280]  INFO -- default2-ubuntu-1604:   * tar_extract[http://packages.i6.inconcertcc.com/speechanalytics/speech/SQ_1.4.2/speech-analytic-testing_1.4.2.tar.gz] action extract
+I, [2021-08-03T17:32:41.421658 #13280]  INFO -- default2-ubuntu-1604:     * directory[/tmp/kitchen/cache] action create (up to date)
+I, [2021-08-03T17:32:53.908653 #13280]  INFO -- default2-ubuntu-1604:     * remote_file[speech-analytic-testing_1.4.2.tar.gz] action create
+I, [2021-08-03T17:32:54.041664 #13280]  INFO -- default2-ubuntu-1604:       - create new file /tmp/kitchen/cache/speech-analytic-testing_1.4.2.tar.gz
+I, [2021-08-03T17:32:54.041731 #13280]  INFO -- default2-ubuntu-1604:       - update content in file /tmp/kitchen/cache/speech-analytic-testing_1.4.2.tar.gz from none to e628da
+I, [2021-08-03T17:32:54.042912 #13280]  INFO -- default2-ubuntu-1604:       (file sizes exceed 10000000 bytes, diff output suppressed)
+I, [2021-08-03T17:32:54.042948 #13280]  INFO -- default2-ubuntu-1604:       - change mode from '' to '0755'
+I, [2021-08-03T17:32:54.043060 #13280]  INFO -- default2-ubuntu-1604:       - change owner from '' to 'root'
+I, [2021-08-03T17:32:54.043454 #13280]  INFO -- default2-ubuntu-1604:       - change group from '' to 'root'
+I, [2021-08-03T17:32:54.044771 #13280]  INFO -- default2-ubuntu-1604:     * directory[/tmp/speechupdate/speechanalytic] action create (up to date)
+I, [2021-08-03T17:32:54.651823 #13280]  INFO -- default2-ubuntu-1604:     * execute[extract /tmp/kitchen/cache/speech-analytic-testing_1.4.2.tar.gz] action run
+I, [2021-08-03T17:32:54.652246 #13280]  INFO -- default2-ubuntu-1604:       - execute tar xfz /tmp/kitchen/cache/speech-analytic-testing_1.4.2.tar.gz -P --strip-components 1
+I, [2021-08-03T17:32:55.439222 #13280]  INFO -- default2-ubuntu-1604:     * execute[extract /tmp/kitchen/cache/speech-analytic-testing_1.4.2.tar.gz] action run
+I, [2021-08-03T17:32:55.439402 #13280]  INFO -- default2-ubuntu-1604:       - execute tar xfz /tmp/kitchen/cache/speech-analytic-testing_1.4.2.tar.gz -P --strip-components 1
+I, [2021-08-03T17:32:55.440049 #13280]  INFO -- default2-ubuntu-1604:   
+I, [2021-08-03T17:33:06.049907 #13280]  INFO -- default2-ubuntu-1604:   * execute[BackupInstallAntiguo] action run
+I, [2021-08-03T17:33:06.050288 #13280]  INFO -- default2-ubuntu-1604:     - execute cp -R /var/www/speechanalytic /var/www/speechanalytic_20210803
+I, [2021-08-03T17:33:06.348602 #13280]  INFO -- default2-ubuntu-1604:   * execute[CopiarArchivosNuevaInstalacion] action run
+I, [2021-08-03T17:33:06.349143 #13280]  INFO -- default2-ubuntu-1604:     - execute cp -R /tmp/speechupdate/speechanalytic/*  /var/www/speechanalytic/
+I, [2021-08-03T17:33:06.385663 #13280]  INFO -- default2-ubuntu-1604:   * execute[CopiarConfigAntiguo] action run
+I, [2021-08-03T17:33:06.386041 #13280]  INFO -- default2-ubuntu-1604:     - execute cp -R /var/www/speechanalytic_20210803/server/config/* /var/www/speechanalytic/server/config/
+I, [2021-08-03T17:33:06.406288 #13280]  INFO -- default2-ubuntu-1604:   * execute[CopiarKnexAntiguo] action run
+I, [2021-08-03T17:33:06.406760 #13280]  INFO -- default2-ubuntu-1604:     - execute cp -R /var/www/speechanalytic_20210803/server/db/external/knex.config.js /var/www/speechanalytic/server/db/external/
+I, [2021-08-03T17:33:06.408506 #13280]  INFO -- default2-ubuntu-1604:   * apt_update[all platforms] action periodic (up to date)
+I, [2021-08-03T17:33:26.348649 #13280]  INFO -- default2-ubuntu-1604:   * bash[actualizar a node 14] action run
+I, [2021-08-03T17:33:26.349125 #13280]  INFO -- default2-ubuntu-1604:     - execute "bash" 
+I, [2021-08-03T17:33:26.356109 #13280]  INFO -- default2-ubuntu-1604:   * tar_extract[http://packages.i6.inconcertcc.com/speechanalytics/utils/intermediate-component-sa_1.1.0.tar.gz] action extract
+I, [2021-08-03T17:33:26.358996 #13280]  INFO -- default2-ubuntu-1604:     * directory[/tmp/kitchen/cache] action create (up to date)
+I, [2021-08-03T17:33:27.206816 #13280]  INFO -- default2-ubuntu-1604:     * remote_file[intermediate-component-sa_1.1.0.tar.gz] action create
+I, [2021-08-03T17:33:27.209645 #13280]  INFO -- default2-ubuntu-1604:       - create new file /tmp/kitchen/cache/intermediate-component-sa_1.1.0.tar.gz
+I, [2021-08-03T17:33:27.209685 #13280]  INFO -- default2-ubuntu-1604:       - update content in file /tmp/kitchen/cache/intermediate-component-sa_1.1.0.tar.gz from none to 0231d1
+I, [2021-08-03T17:33:27.211242 #13280]  INFO -- default2-ubuntu-1604:       (new content is binary, diff output suppressed)
+I, [2021-08-03T17:33:27.211273 #13280]  INFO -- default2-ubuntu-1604:       - change mode from '' to '0755'
+I, [2021-08-03T17:33:27.211392 #13280]  INFO -- default2-ubuntu-1604:       - change owner from '' to 'root'
+I, [2021-08-03T17:33:27.211874 #13280]  INFO -- default2-ubuntu-1604:       - change group from '' to 'root'
+I, [2021-08-03T17:33:27.213617 #13280]  INFO -- default2-ubuntu-1604:     * directory[/tmp/intermediate-component-sa] action create (up to date)
+I, [2021-08-03T17:33:27.257072 #13280]  INFO -- default2-ubuntu-1604:     * execute[extract /tmp/kitchen/cache/intermediate-component-sa_1.1.0.tar.gz] action run
+I, [2021-08-03T17:33:27.257551 #13280]  INFO -- default2-ubuntu-1604:       - execute tar xfz /tmp/kitchen/cache/intermediate-component-sa_1.1.0.tar.gz -P --strip-components 1
+I, [2021-08-03T17:33:27.296610 #13280]  INFO -- default2-ubuntu-1604:     * execute[extract /tmp/kitchen/cache/intermediate-component-sa_1.1.0.tar.gz] action run
+I, [2021-08-03T17:33:27.296904 #13280]  INFO -- default2-ubuntu-1604:       - execute tar xfz /tmp/kitchen/cache/intermediate-component-sa_1.1.0.tar.gz -P --strip-components 1
+I, [2021-08-03T17:33:27.297125 #13280]  INFO -- default2-ubuntu-1604:   
+I, [2021-08-03T17:33:27.326197 #13280]  INFO -- default2-ubuntu-1604:   * execute[CopiarNuevoIntermediate] action run
+I, [2021-08-03T17:33:27.326505 #13280]  INFO -- default2-ubuntu-1604:     - execute cp -R /tmp/intermediate-component-sa/* /var/www/speechanalytic/node_modules/intermediate-component-sa/
+I, [2021-08-03T17:33:27.344167 #13280]  INFO -- default2-ubuntu-1604:   * template[/var/www/speechanalytic/node_modules/intermediate-component-sa/server/customRequest.js] action create
+I, [2021-08-03T17:33:27.344306 #13280]  INFO -- default2-ubuntu-1604:     - update content in file /var/www/speechanalytic/node_modules/intermediate-component-sa/server/customRequest.js from 8086bf to ca00a4
+I, [2021-08-03T17:33:27.344457 #13280]  INFO -- default2-ubuntu-1604:     --- /var/www/speechanalytic/node_modules/intermediate-component-sa/server/customRequest.js	2021-08-03 22:33:27.322252537 +0000
+I, [2021-08-03T17:33:27.344498 #13280]  INFO -- default2-ubuntu-1604:     +++ /var/www/speechanalytic/node_modules/intermediate-component-sa/server/.chef-customRequest20210803-12677-1174fn1.js	2021-08-03 22:33:27.350252737 +0000
+I, [2021-08-03T17:33:27.344669 #13280]  INFO -- default2-ubuntu-1604:     @@ -8,7 +8,7 @@
+I, [2021-08-03T17:33:27.344823 #13280]  INFO -- default2-ubuntu-1604:      var moment = require("moment");
+I, [2021-08-03T17:33:27.345014 #13280]  INFO -- default2-ubuntu-1604:      var file_manager_1 = require("./shared/file-manager");
+I, [2021-08-03T17:33:27.345047 #13280]  INFO -- default2-ubuntu-1604:      var fs = require('fs');
+I, [2021-08-03T17:33:27.345153 #13280]  INFO -- default2-ubuntu-1604:     -var CENTRALIZED_API_BASE_URL = 'http://localhost:9002/';
+I, [2021-08-03T17:33:27.345279 #13280]  INFO -- default2-ubuntu-1604:     +var CENTRALIZED_API_BASE_URL = 'https://billing-sq.inconcertcc.com/';
+I, [2021-08-03T17:33:27.345408 #13280]  INFO -- default2-ubuntu-1604:      function InconcertRequest(installationId, path, data) {
+I, [2021-08-03T17:33:27.345514 #13280]  INFO -- default2-ubuntu-1604:   var systemInformationData = null;
+I, [2021-08-03T17:33:27.345592 #13280]  INFO -- default2-ubuntu-1604:   var route = routes_centralized_1.RoutesCentralized[path];
+I, [2021-08-03T17:33:27.345677 #13280]  INFO -- default2-ubuntu-1604: Recipe: sa_cookbook::aprovisionamiento
+I, [2021-08-03T17:33:27.345852 #13280]  INFO -- default2-ubuntu-1604:   * apt_package[Install Node] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.346009 #13280]  INFO -- default2-ubuntu-1604:   * apt_update[all platforms] action periodic (up to date)
+I, [2021-08-03T17:33:27.346169 #13280]  INFO -- default2-ubuntu-1604:   * apt_package[Install Unrar] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.346365 #13280]  INFO -- default2-ubuntu-1604:   * apt_package[Install essential] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.346573 #13280]  INFO -- default2-ubuntu-1604:   * apt_package[tcl] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.346748 #13280]  INFO -- default2-ubuntu-1604:   * apt_package[redis-server] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.347139 #13280]  INFO -- default2-ubuntu-1604:   * bash[enable and start redis] action run (skipped due to only_if)
+I, [2021-08-03T17:33:27.347336 #13280]  INFO -- default2-ubuntu-1604:   * bash[install pm2] action run (skipped due to only_if)
+I, [2021-08-03T17:33:27.347538 #13280]  INFO -- default2-ubuntu-1604:   * apt_package[sshpass] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.347705 #13280]  INFO -- default2-ubuntu-1604: Recipe: sa_cookbook::speechanalytic
+I, [2021-08-03T17:33:27.347951 #13280]  INFO -- default2-ubuntu-1604:   * bash[crear carpetas y detener pm2] action run (skipped due to only_if)
+I, [2021-08-03T17:33:27.348247 #13280]  INFO -- default2-ubuntu-1604:   * tar_extract[http://packages.i6.inconcertcc.com/speechanalytics/speech/SQ_1.4.2/speech-analytic-testing_1.4.2.tar.gz] action extract (skipped due to only_if)
+I, [2021-08-03T17:33:27.348492 #13280]  INFO -- default2-ubuntu-1604:   * execute[npm install at /var/www/speechanalytic] action run (skipped due to only_if)
+I, [2021-08-03T17:33:27.348755 #13280]  INFO -- default2-ubuntu-1604:   * bash[crear las instancias de node mediante el servicio pm2] action run (skipped due to only_if)
+I, [2021-08-03T17:33:27.349065 #13280]  INFO -- default2-ubuntu-1604:   * template[/var/www/speechanalytic/server/config/config.js] action create (skipped due to only_if)
+I, [2021-08-03T17:33:27.349276 #13280]  INFO -- default2-ubuntu-1604:   * template[/var/www/speechanalytic/server/config/integration.config.js] action create (skipped due to only_if)
+I, [2021-08-03T17:33:27.349604 #13280]  INFO -- default2-ubuntu-1604:   * template[/var/www/speechanalytic/server/config/mssql.config.js] action create (skipped due to only_if)
+I, [2021-08-03T17:33:27.349895 #13280]  INFO -- default2-ubuntu-1604:   * template[/var/www/speechanalytic/server/config/server.config.js] action create (skipped due to only_if)
+I, [2021-08-03T17:33:27.350122 #13280]  INFO -- default2-ubuntu-1604:   * template[/var/www/speechanalytic/server/db/external/knex.config.js] action create (skipped due to only_if)
+I, [2021-08-03T17:33:27.350320 #13280]  INFO -- default2-ubuntu-1604:   * tar_extract[http://packages.i6.inconcertcc.com/speechanalytics/utils/intermediate-component-sa_1.1.0.tar.gz] action extract (skipped due to only_if)
+I, [2021-08-03T17:33:27.350537 #13280]  INFO -- default2-ubuntu-1604:   * execute[CopiarNuevoIntermediate] action run (skipped due to only_if)
+I, [2021-08-03T17:33:27.350724 #13280]  INFO -- default2-ubuntu-1604:   * template[/var/www/speechanalytic/node_modules/intermediate-component-sa/server/customRequest.js] action create (skipped due to only_if)
+I, [2021-08-03T17:33:27.350945 #13280]  INFO -- default2-ubuntu-1604:   * bash[stop, restart and reload pm2] action run (skipped due to only_if)
+I, [2021-08-03T17:33:27.351220 #13280]  INFO -- default2-ubuntu-1604:   * cron[speechcrontab] action create (skipped due to only_if)
+I, [2021-08-03T17:33:27.351411 #13280]  INFO -- default2-ubuntu-1604:   * apt_update[all platforms] action periodic (skipped due to only_if)
+I, [2021-08-03T17:33:27.351727 #13280]  INFO -- default2-ubuntu-1604:   * apt_package[Install libmms0] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.351998 #13280]  INFO -- default2-ubuntu-1604:   * bash[Descargar paquetes necesarios para la diarizacion] action run (skipped due to only_if)
+I, [2021-08-03T17:33:27.352216 #13280]  INFO -- default2-ubuntu-1604:   * dpkg_package[libzen0v5_0.4.38-1_amd64.xUbuntu_16.04.deb] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.352438 #13280]  INFO -- default2-ubuntu-1604:   * dpkg_package[libmediainfo0v5_20.09-1_amd64.xUbuntu_16.04.deb] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.352687 #13280]  INFO -- default2-ubuntu-1604:   * dpkg_package[mediainfo_20.09-1_amd64.xUbuntu_16.04.deb] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.352893 #13280]  INFO -- default2-ubuntu-1604:   * apt_package[Install ffmpeg] action install (skipped due to only_if)
+I, [2021-08-03T17:33:27.387678 #13280]  INFO -- default2-ubuntu-1604: 
+I, [2021-08-03T17:33:27.387770 #13280]  INFO -- default2-ubuntu-1604: Running handlers:
+I, [2021-08-03T17:33:27.387791 #13280]  INFO -- default2-ubuntu-1604: Running handlers complete
+I, [2021-08-03T17:33:27.388043 #13280]  INFO -- default2-ubuntu-1604: Chef Infra Client finished, 26/69 resources updated in 53 seconds
+I, [2021-08-03T17:33:27.642073 #13280]  INFO -- default2-ubuntu-1604: Downloading files from <default2-ubuntu-1604>
+I, [2021-08-03T17:33:27.646277 #13280]  INFO -- default2-ubuntu-1604: Finished converging <default2-ubuntu-1604> (0m57.45s).

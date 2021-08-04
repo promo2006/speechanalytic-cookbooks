@@ -37,6 +37,8 @@ exports.AUDIO_FORMAT = {
     'audio/x-wav': 'wav',
 };
 exports.PERSISTENCE = 2 * 24 * 60 * 60;
+exports.PERSISTENCE_HISTORIC = 360 * 24 * 60 * 60;
+exports.PERSISTENCE_AUDIO_TEMP = 2 * 24 * 60 * 60;
 exports.RATIO_SUPERVISOR = 0;
 exports.RATIO_PROCESS = 3;
 exports.RATE_RECURSIVE_PROCESS = 4;
@@ -87,6 +89,7 @@ exports.IDATHA_PASSWORD = 'HtM37WFwV37E6fy4';
 exports.IDATHA_IP = '<%= node.default[:idatha_ip]%>';
 exports.IDATHA_HTTP_PORT = '<%= node.default[:idatha_http_port]%>';
 exports.IDATHA_SSH_PORT = '<%= node.default[:idatha_ssh_port]%>';
+exports.IDATHA_TEST_REALM = '1av55qsspk';
 exports.TRANSCRIPTION_AVAILABLE_LANGUAGES = ['en', 'fr', 'pt', 'es'];
 exports.FTP_CONNECTION_TIMEOUT = 30000;
 exports.IDATHA_QUERY_ID_EXPIRATION = 58;
@@ -101,8 +104,8 @@ exports.COGNITIVE_SERVICES_RASA_AVAILABLE_LANGUAGES = ['en', 'fr', 'pt', 'es'];
 exports.LUIS_URL = 'api.cognitive.microsoft.com/luis/api/v2.0/apps';
 exports.LUIS_URL_ACCOUNTS = 'api.cognitive.microsoft.com/luis/api/v2.0/azureaccounts';
 exports.LUIS_URL_STUDY = 'api.cognitive.microsoft.com/luis/v2.0/apps';
-exports.RASA_IP = '127.0.0.1';
-exports.RASA_PORT = '22';
+exports.RASA_IP = '<%= node.default[:rasa_ip]%>';
+exports.RASA_PORT = '<%= node.default[:rasa_port]%>';
 exports.RASA_USER = 'admon';
 exports.RASA_PASSWORD = 'HtM37WFwV37E6fy4';
 exports.RASA_ROOT_FOLDER = '/home/admon';

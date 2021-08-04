@@ -1,7 +1,8 @@
 {
-  "revision_id": "6203309443efa4b4381fbdc8a67553a68d9ab950f45fd57f81bfd5cee5230504",
+  "revision_id": "0de254529db584c74c1308e767cf80170212e2959db5506f0412208a1967c186",
   "name": "sa_cookbook",
   "run_list": [
+    "recipe[sa_cookbook::updatespeech]",
     "recipe[sa_cookbook::aprovisionamiento]",
     "recipe[sa_cookbook::speechanalytic]",
     "recipe[sa_cookbook::rasa]"
@@ -11,20 +12,31 @@
   ],
   "cookbook_locks": {
     "line": {
-      "version": "4.0.0",
-      "identifier": "685f903c7062134d9a234bf145e975bbcc3e3083",
-      "dotted_decimal_identifier": "29378470671835667.21843049595356649.129449445961859",
-      "cache_key": "line-4.0.0-supermarket.chef.io",
-      "origin": "https://supermarket.chef.io:443/api/v1/cookbooks/line/versions/4.0.0/download",
+      "version": "4.0.1",
+      "identifier": "e84f1b2fc819d1158606add78054071c76a66e9d",
+      "dotted_decimal_identifier": "65389172781226449.6058337755430996.7818831097501",
+      "cache_key": "line-4.0.1-supermarket.chef.io",
+      "origin": "https://supermarket.chef.io:443/api/v1/cookbooks/line/versions/4.0.1/download",
       "source_options": {
-        "artifactserver": "https://supermarket.chef.io:443/api/v1/cookbooks/line/versions/4.0.0/download",
-        "version": "4.0.0"
+        "artifactserver": "https://supermarket.chef.io:443/api/v1/cookbooks/line/versions/4.0.1/download",
+        "version": "4.0.1"
+      }
+    },
+    "openssl": {
+      "version": "8.5.5",
+      "identifier": "45fc200d16a306f36d43900044d66a9f296ed914",
+      "dotted_decimal_identifier": "19698987981775622.68518556286862550.117231827474708",
+      "cache_key": "openssl-8.5.5-supermarket.chef.io",
+      "origin": "https://supermarket.chef.io:443/api/v1/cookbooks/openssl/versions/8.5.5/download",
+      "source_options": {
+        "artifactserver": "https://supermarket.chef.io:443/api/v1/cookbooks/openssl/versions/8.5.5/download",
+        "version": "8.5.5"
       }
     },
     "sa_cookbook": {
       "version": "0.0.0",
-      "identifier": "65c4aefedab8eb5c01df3095994d10a8ca516776",
-      "dotted_decimal_identifier": "28645228526876907.25897755961825613.18317134882678",
+      "identifier": "d430acf452b538742a1e82eefb6d779aff452511",
+      "dotted_decimal_identifier": "59726214454228280.32697407832521581.131507591390481",
       "source": ".",
       "cache_key": null,
       "scm_info": null,
@@ -54,7 +66,11 @@
     "Policyfile": [
       [
         "line",
-        "= 4.0.0"
+        "= 4.0.1"
+      ],
+      [
+        "openssl",
+        "= 8.5.5"
       ],
       [
         "sa_cookbook",
@@ -66,7 +82,10 @@
       ]
     ],
     "dependencies": {
-      "line (4.0.0)": [
+      "line (4.0.1)": [
+
+      ],
+      "openssl (8.5.5)": [
 
       ],
       "sa_cookbook (0.0.0)": [
@@ -77,6 +96,10 @@
         [
           "line",
           "~> 4.0.0"
+        ],
+        [
+          "openssl",
+          "~> 8.5.5"
         ]
       ],
       "tar (2.2.0)": [

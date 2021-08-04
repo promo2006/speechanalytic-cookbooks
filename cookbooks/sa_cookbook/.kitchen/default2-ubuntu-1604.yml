@@ -1,0 +1,7 @@
+---
+hostname: 192.168.121.36
+port: '22'
+username: vagrant
+ssh_key: "/home/gretty/Proyectos/speech_cookbooks/cookbooks/sa_cookbook/.kitchen/kitchen-vagrant/default2-ubuntu-1604/.vagrant/machines/default/libvirt/private_key"
+last_action: converge
+last_error: 

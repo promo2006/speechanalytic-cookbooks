@@ -31,47 +31,20 @@ node.default["http_binding_port"]                            =  data_bag_item('s
 node.default["centralized_api_base_url"]                     =  data_bag_item('speechanalytic', 'sa_config')['centralized_api_base_url'] 
 node.default["sa_version"]                                   =  data_bag_item('speechanalytic', 'sa_config')['sa_version'] 
 node.default["intermediate_version"]                         =  data_bag_item('speechanalytic', 'sa_config')['intermediate_version'] 
+node.default["billing_ip"]                                   =  data_bag_item('speechanalytic', 'sa_config')['billing_ip'] 
+node.default["billing_port"]                                 =  data_bag_item('speechanalytic', 'sa_config')['billing_port'] 
+node.default["install_mode"]                                 =  data_bag_item('speechanalytic', 'sa_config')['install_mode'] 
 node.default["billing_flag"]                                 =  "false"
 node.default["speechmatic_flag"]                             =  "false"
 node.default["idatha_flag"]                                  =  "false"
-
-=begin
-#modificar tipo a privada, publica o interxion para asignar ips correspondientes speechmatics e idatha
-node.default["speechmatics_conexion"]   = "privada"
-node.default["speechmatics_ip_pub"]     = "38.132.207.239"
-node.default["speechmatics_ip_priv"]    = "172.16.219.3"
-node.default["speechmatics_ip_interxion"] = "10.160.30.130"
-node.default["speechmatics_port"]         = "8082"
-
-
-node.default["idatha_conexion"]         = "privada"
-node.default["idatha_ip_pub"]           = "38.132.204.106"
-node.default["idatha_ip_priv"]          = "10.2.11.10"
-node.default["idatha_port"]             = "9201"
-
-node.default["billing_ip_pub"]          = "38.132.207.229"
-node.default["billing_ip_priv"]         = "172.16.234.2"
-node.default["billing_port"]            = "443"
-node.default["billing_dns"]             = "billing-sq.inconcertcc.com/"
+node.default["sa_repository"]                                =  "packages.i6.inconcertcc.com/speechanalytics"
+node.default["path_cron"]                                    =  {'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'}
+node.default["flaginstall"]                                  =  "false"
+node.default["flagupdate"]                                   =  "false"
+node.default["updatenodeversion"]                            =  "false"
+node.default["rasa_ip"]                                      =  data_bag_item('speechanalytic', 'sa_config')['rasa_ip'] 
+node.default["rasa_port"]                                    =  data_bag_item('speechanalytic', 'sa_config')['rasa_port'] 
 
 
-# Atributos de Integracion Middleware Allegro, Base Datos , OCC variables de speech analytic
-# Allegro
 
-node.default["ip_mw"]                   = "192.168.20.215"
-node.default["ip_bd"]                   = "192.168.20.215"
-node.default["bd_user"]                 = "usraccmw"
-node.default["bd_pass"]                 = "inc2001"
 
-# OCC
-
-node.default["ip_sql_i6"]               = ""
-node.default["ip_i6"]                   = ""
-node.default["port_i6"]                 = "9160"
-node.default["dns_i6"]                  = ""
-node.default["user_api_i6"]             = "integrationsq"
-node.default["ass_api_i6"]              = "inc0nc3rt"
-node.default["i6_text_host"]            = ""
-node.default["i6_text_port"]            = "9080"
-
-=end

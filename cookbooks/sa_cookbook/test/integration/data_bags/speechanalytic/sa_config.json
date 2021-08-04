@@ -5,7 +5,11 @@
     "speechmatics_port": "8082",
     "idatha_ip":"38.132.204.106",
     "idatha_http_port": "9201",
-    "idatha_ssh_port": "2224", 
+    "idatha_ssh_port": "4422", 
+    "billing_ip": "38.132.207.229",    
+    "billing_port" : "443",
+    "rasa_ip":"127.0.0.1",
+    "rasa_port":"22",
     "ftp_port_diarization_convert":"21",
     "ftp_user_diarization_convert": "ftp-volcado",
     "ftp_password_diarization_convert": "kRQliIac6CtUrK",
@@ -20,17 +24,18 @@
     "bd_user": "UsrAccMw",
     "bd_pass": "inc2001",
     "ip_sql_i6": "",
-    "ip_i6": "",
+    "ip_i6": "172.16.128.4",
     "casandra_port": "9160",
-    "dns_i6": "i6.inconcertcc.com",
+    "dns_i6": "college.i6.inconcertcc.com",
     "user_api_i6": "integrationsq",
     "pass_api_i6" : "inc0nc3rt",
     "i6_text_host": "",
-    "i6_text_port": "9080",
+    "i6_text_port": "",
     "http_binding_port": "80",
-    "centralized_api_base_url": "billing",
-    "sa_version": "0.16.1",
-    "intermediate_version": "1.0.0"    
+    "centralized_api_base_url": "https://billing-sq.inconcertcc.com/",
+    "sa_version": "1.4.2",
+    "intermediate_version": "1.1.0",    
+    "install_mode": "testing"   
 }
 
 

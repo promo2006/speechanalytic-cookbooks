@@ -10,7 +10,7 @@ name 'sa_cookbook'
 default_source :supermarket
 
 # run_list: chef-client will run these recipes in the order specified.
-run_list 'sa_cookbook::aprovisionamiento','sa_cookbook::speechanalytic','sa_cookbook::rasa'
+run_list 'sa_cookbook::updatespeech','sa_cookbook::aprovisionamiento','sa_cookbook::speechanalytic','sa_cookbook::rasa'
 
 # Specify a custom source for a single cookbook:
 #cookbook 'redis', '~> 3.0.4', :supermarket
