@@ -39,12 +39,6 @@ node.default["speechmatic_flag"]                             =  "false"
 node.default["idatha_flag"]                                  =  "false"
 node.default["sa_repository"]                                =  "packages.i6.inconcertcc.com/speechanalytics"
 node.default["path_cron"]                                    =  {'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'}
-node.default["flaginstall"]                                  =  "false"
-node.default["flagupdate"]                                   =  "false"
-node.default["updatenodeversion"]                            =  "false"
+node.default["flaginstall"]                                  =  "false" 
 node.default["rasa_ip"]                                      =  data_bag_item('speechanalytic', 'sa_config')['rasa_ip'] 
-node.default["rasa_port"]                                    =  data_bag_item('speechanalytic', 'sa_config')['rasa_port'] 
-
-
-
-
+node.default["rasa_port"]                                      =  data_bag_item('speechanalytic', 'sa_config')['rasa_port'] 

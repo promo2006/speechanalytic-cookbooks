@@ -8,7 +8,7 @@
 include_recipe 'tar'
 include_recipe 'line'
 
-
+if node.default["flaginstall"]=='true'
 
   bash 'crear carpetas y detener pm2' do
     code <<-EOL
@@ -17,7 +17,7 @@ include_recipe 'line'
     mkdir -p /sq/storage/out   
 
     EOL
-    only_if {node.default["flaginstall"] == 'true'}  
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
   #descargar y descomprimir ultimo build de speech analytics
   #sa_version = data_bag_item('speechanalytic', 'sa_config')['sa_version']
@@ -35,14 +35,14 @@ include_recipe 'line'
     target_dir '/var/www/speechanalytic'
     creates '/tmp/speechanalytic/mycode/lib'
     tar_flags [ '-P', '--strip-components 1' ]
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}     
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}  
   end
 
 
   execute "npm install at /var/www/speechanalytic" do
     cwd '/var/www/speechanalytic'
     command 'npm install'
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}  
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end 
 
   # Instancias pm2 
@@ -54,18 +54,81 @@ include_recipe 'line'
       pm2 save
     
       EOL
-      only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}  
+      only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
   
 
 
   #Modificar archivos configuracion speechanalytic
   #Modificar archivo config.js en /var/www/speechaanlytic/server/config
-  template '/var/www/speechanalytic/server/config/config.js' do
-    source 'config.js.erb'  
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
-  end
   
+  speechmatics_ip = node.default["speechmatics_ip"]
+  speechmatics_port = node.default["speechmatics_port"]
+
+  replace_or_add "Setear linea SPEECHMATICS_IP en config" do    
+    path "/var/www/speechanalytic/server/config/config.js"
+    pattern "exports.SPEECHMATICS_IP = '.*"
+    line "exports.SPEECHMATICS_IP = '#{speechmatics_ip}'"
+    replace_only true
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
+  end
+ 
+  
+  
+  replace_or_add "Setear linea SPEECHMATICS_PORT en config" do    
+    path "/var/www/speechanalytic/server/config/config.js"
+    pattern "exports.SPEECHMATICS_PORT = '.*"
+    line "exports.SPEECHMATICS_PORT = '#{speechmatics_port}'"
+    replace_only true
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
+  end
+
+  #Configurar Idatha en config
+
+  idatha_ip = node.default["idatha_ip"]
+  replace_or_add "Setear linea IDATHA_IP en config" do    
+    path "/var/www/speechanalytic/server/config/config.js"
+    pattern "exports.IDATHA_IP = '.*"
+    line "exports.IDATHA_IP = '#{idatha_ip}'"
+    replace_only true
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
+  end
+
+idatha_http_port = node.default["idatha_http_port"]
+  replace_or_add "Setear linea IDATHA_HTTP_PORT en config" do    
+    path "/var/www/speechanalytic/server/config/config.js"
+    pattern "exports.IDATHA_HTTP_PORT = '.*"
+    line "exports.IDATHA_HTTP_PORT = '#{idatha_http_port}'"
+    replace_only true
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
+  end
+
+  idatha_ssh_port = node.default["idatha_ssh_port"]
+  replace_or_add "Setear linea IDATHA_SSH_PORT en config" do    
+    path "/var/www/speechanalytic/server/config/config.js"
+    pattern "exports.IDATHA_SSH_PORT = '.*"
+    line "exports.IDATHA_SSH_PORT = '#{idatha_ssh_port}'"
+    replace_only true
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
+  end
+
+  rasa_ip = node.default["rasa_ip"]
+  replace_or_add "Setear linea rasa_ip" do    
+    path "/var/www/speechanalytic/server/config/config.js"
+    pattern "exports.RASA_IP = '.*"
+    line "exports.RASA_IP = '#{rasa_ip}'"
+    replace_only true
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
+  end
+
+  rasa_port = node.default["rasa_port"]
+  replace_or_add "Setear linea rasa_port" do    
+    path "/var/www/speechanalytic/server/config/config.js"
+    pattern "exports.RASA_PORT = '.*"
+    line "exports.RASA_PORT = '#{rasa_port}'"
+    replace_only true
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
+  end
   
 
   #Modificar archivo integration.js en /var/www/speechaanlytic/server/config
@@ -73,27 +136,28 @@ include_recipe 'line'
     
   template '/var/www/speechanalytic/server/config/integration.config.js' do
     source 'integration.config.js.erb'  
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}  
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
+
 
     
   #En este punto si la integracion es con i6 se debe hacer modificaciones iptables en el servidor de i6
   #Modificar archivo mssql.config.js en var/www/speechaanlytic/server/config
   template '/var/www/speechanalytic/server/config/mssql.config.js' do
     source 'mssql.config.js.erb'  
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
 
   #Modificar archivo server.config.js en var/www/speechaanlytic/server/config
   template '/var/www/speechanalytic/server/config/server.config.js' do
     source 'server.config.js.erb' 
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
 
   #Modificar archivo knex.config.js en var/www/speechanalytic/server/db/external/
   template '/var/www/speechanalytic/server/db/external/knex.config.js' do
     source 'knex.config.js.erb'  
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}  
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
 
   #A continuacion  descargar y descomprimir intermediate-component 
@@ -104,23 +168,24 @@ include_recipe 'line'
     target_dir '/tmp/intermediate-component-sa'
     creates '/tmp/intermediate/mycode/lib'
     tar_flags [ '-P', '--strip-components 1' ]
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}   
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
 
   #Reemplazar carpeta por la ya existente
-  execute "CopiarNuevoIntermediate" do
-    command "cp -R /tmp/intermediate-component-sa/* /var/www/speechanalytic/node_modules/intermediate-component-sa/"
-    user "root"
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+  bash 'stop, restart and reload pm2' do
+    code <<-EOL    
+    cp -R /tmp/intermediate-component-sa/* /var/www/speechanalytic/node_modules/intermediate-component-sa/
+
+    EOL
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
 
   #Modificar archivo customRequest.js en var/www/speechanalytic/node_modules/intermediate-component-sa
   template '/var/www/speechanalytic/node_modules/intermediate-component-sa/server/customRequest.js' do
     source 'customRequest.js.erb'  
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
 
-    
   #Reiniciar y recargar pm2
   bash 'stop, restart and reload pm2' do
   code <<-EOL    
@@ -128,7 +193,7 @@ include_recipe 'line'
   pm2 restart all
   pm2 reload all
   EOL
-  only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+  only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
 
   #Configurar archivo crontab
@@ -141,7 +206,7 @@ include_recipe 'line'
     command 'node /var/www/speechanalytic/server/task/speechanalytics.task.js'
     environment node.default["path_cron"]
     action :create
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
 
 
@@ -151,12 +216,12 @@ include_recipe 'line'
   apt_update 'all platforms' do
     frequency 86400
     action :periodic
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
     
   package 'Install libmms0' do
     package_name 'libmms0'
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
     
   bash 'Descargar paquetes necesarios para la diarizacion' do
@@ -168,32 +233,37 @@ include_recipe 'line'
     wget http://#{sa_repository}/utils/mediainfo_20.09-1_amd64.xUbuntu_16.04.deb    
         
     EOL
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
     
   dpkg_package 'libzen0v5_0.4.38-1_amd64.xUbuntu_16.04.deb' do
     source '/libzen0v5_0.4.38-1_amd64.xUbuntu_16.04.deb'
     action :install
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
     
   dpkg_package 'libmediainfo0v5_20.09-1_amd64.xUbuntu_16.04.deb' do
     source '/libmediainfo0v5_20.09-1_amd64.xUbuntu_16.04.deb'
     action :install
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
   end
     
   dpkg_package 'mediainfo_20.09-1_amd64.xUbuntu_16.04.deb' do
     source '/mediainfo_20.09-1_amd64.xUbuntu_16.04.deb'
-    action :install    
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}   
+    action :install
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}
+        
   end
   package 'Install ffmpeg' do
     puts "Instalación de SpeechAnalytic Finalizada Correctamente"
     package_name 'ffmpeg'
-    only_if {node.default["flaginstall"] == 'true' && node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'} 
+    only_if {node.default["speechmatics_flag"] == 'true' &&  node.default['idatha_flag'] == 'true' && node.default['billing_flag'] == 'true'}    
   end
 
+  
+    
 
+  #wget -q http://#{node.default["speech_repository"] }/repo/curl_7_73_ubuntu.gz -O /tmp/curl_7_73_ubuntu.gz
+end  
 
 
